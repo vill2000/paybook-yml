@@ -1,0 +1,19 @@
+
+---
+- hosts: all
+  user: root
+  become: yes
+  become_method: sudo
+  tasks:
+  - name: install docker
+    yum: name=docker state=latest
+    register: output
+  - debug:
+     var: output
+  - name: check docker version
+    command: docker --version
+    register: docker_version
+  - debug:
+     var: docker_version
+
+
