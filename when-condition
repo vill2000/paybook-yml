@@ -1,0 +1,30 @@
+
+---
+- hosts: all
+  become: true
+  become_method: sudo
+  tasks:
+  - name: insatll php on ubuntu machine
+    apt: name=php state=latest
+    when: ansible_os_family == "Debian"
+  - name: install php on amazon linux machine
+    yum : name=php state=latest
+    when: ansible_os_family == "Redhat"
+  - name: install apache in ubuntu machine
+    apt: nam=apache2 state=latest
+    when: ansible_os_family == "Debian"
+  - name: install httpd in amazon linux machine
+    yum: name=httpd state=latest
+    when: ansible_os_family == "Redhat"
+  - name: copy ubuntu.html to ubuntu machine
+    copy: src=/etc/ansible/ubuntu.html dest=/var/www/html
+    when: ansible_os_family == "Debian"
+  - name: copy amazon.html to amazon linux machine
+    copy: src=/etc/ansible/amazon.html dest=/var/www/html
+    when: ansible_os_family == "Redhat"
+  - name: start httpd service
+    service: name=httpd state=started
+    when: ansible_os_family == "Redhat"
+  - name: start apache service
+    service: name=pache2 state=started
+    when: ansible_os_family == "Debian"
