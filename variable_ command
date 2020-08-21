@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: true
+  become_method: sudo
+  tasks:
+  - name: Installing {{package1}}
+    yum: name={{package1}} state=latest
+  - name: Installing {{package2}}
+    yum: name={{package2}} state=latest
+  - name: Installing {{package3}}
+    yum: name={{package3}} state=latest
